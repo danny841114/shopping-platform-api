@@ -48,7 +48,10 @@ public class Product {
     private byte[] photo;
 
     @JsonIgnore
-    @JsonManagedReference
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItemList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItemList = new ArrayList<>();
 }

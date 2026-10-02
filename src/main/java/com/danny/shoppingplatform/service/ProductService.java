@@ -5,6 +5,7 @@ import com.danny.shoppingplatform.dto.product.ProductDto;
 import com.danny.shoppingplatform.dto.product.UpdateProductRequest;
 import com.danny.shoppingplatform.dto.product.ProductPageDto;
 import com.danny.shoppingplatform.exception.custom.InternalServerException;
+import com.danny.shoppingplatform.model.OrderItem;
 import com.danny.shoppingplatform.model.Vendor;
 import com.danny.shoppingplatform.repository.ProductRepository;
 import com.danny.shoppingplatform.model.Product;
@@ -48,6 +49,12 @@ public class ProductService {
         Vendor vendor = getVendorByAccount(account);
         if (!vendor.getId().equals(product.getVendor().getId())) {
             throw new AuthorizationDeniedException("Product owner and current vendor does not match");
+        }
+
+        if (product.getOrderItemList() != null) {
+            for (OrderItem item : product.getOrderItemList()) {
+                item.setProduct(null);
+            }
         }
 
         productRepository.delete(product);
