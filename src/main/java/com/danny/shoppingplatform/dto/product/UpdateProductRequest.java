@@ -10,6 +10,7 @@ public record UpdateProductRequest(
         String description,
         @Min(value = 0, message = "Price should not be less than 0") BigDecimal price,
         @Min(value = 0, message = "Quantity should not be less than 0") Integer quantity,
-        MultipartFile photo
+        MultipartFile photo,
+        Boolean deletePhoto
 ) {
 }

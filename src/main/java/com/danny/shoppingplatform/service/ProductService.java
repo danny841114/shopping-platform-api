@@ -102,6 +102,8 @@ public class ProductService {
             } catch (IOException e) {
                 throw new InternalServerException("Upload image failed");
             }
+        } else if (request.deletePhoto() != null && request.deletePhoto()) {
+            product.setPhoto(null);
         }
 
         product.setName(request.name());
